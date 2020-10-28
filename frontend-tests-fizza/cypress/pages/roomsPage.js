@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-
+import faker from 'faker'
 //Elements
 const titleOfRoomsPage='Testers Hotel'
 const createRoomButton= '#app > div > h2 > a'
@@ -32,26 +32,33 @@ function performLogoutFromRoomsPage(cy, contentToConfirm){
     cy.contains(contentToConfirm)
 }
 function selectCategoryOfRoom(cy){
-    cy.get(categorySelectorField).select('Double') // to do as parameter
+    let roomCategory=['Double', 'Single', 'Twin']
+    const random = Math.floor(Math.random() * roomCategory.length);
+    cy.get(categorySelectorField).select(roomCategory[random]) // to do as parameter
 }
 function inputRoomNumber(cy, roomnumber){
+    
     cy.get(roomNumberField).type(roomnumber)
 }
-function inputFloorNumber(cy, floornumber){
-    cy.get(floorNumberField).type(floornumber)
+function inputFloorNumber(cy){
+    let floorNumber=faker.random.number(200)
+    cy.get(floorNumberField).type(floorNumber)
 }
 function roomIsAvailable(cy){
     cy.get(roomAvailabilityCheckBox).click()
 }
-function inputPrice(cy, price){
+function inputPrice(cy){
+    let price=faker.random.number({min:200, max:10000})
     cy.get(priceField).type(price)
 }
 function selectRoomFeatures(cy, feature){
     cy.get(featureSelector).select(feature)
 }
 
-function saveNewRoom(cy, contentToConfirm){
+function saveNewRoom(cy, contentToConfirm1, contentToConfirm2){
     cy.get(saveButton).click()
+    cy.contains(contentToConfirm1)
+    cy.contains(contentToConfirm2)
 }
 //Exports
 module.exports= {

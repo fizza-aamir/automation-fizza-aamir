@@ -5,6 +5,7 @@ import * as targets from '../targets/targets'
 import * as roomsFuncs from '../pages/roomsPage'
 import * as clientsFuncs from '../pages/clientsPage'
 import * as billFuncs from '../pages/billsPage'
+import faker from 'faker'
 
 // this is a test suite
 describe('Test Suite with Page Objects', function(){
@@ -33,32 +34,47 @@ describe('Test Suite with Page Objects', function(){
         roomsFuncs.checkTitleOfRoomsPage(cy)
         roomsFuncs.goToCreateRoomForm(cy, 'New Room')
         roomsFuncs.selectCategoryOfRoom(cy)
-        roomsFuncs.inputRoomNumber(cy, '105')
-        roomsFuncs.inputFloorNumber(cy, '5')
+        let roomNumber=faker.random.number(1000)
+        roomsFuncs.inputRoomNumber(cy, roomNumber)
+        roomsFuncs.inputFloorNumber(cy)
         roomsFuncs.roomIsAvailable(cy)
-        roomsFuncs.inputPrice(cy, '899')
+        roomsFuncs.inputPrice(cy)
         roomsFuncs.selectRoomFeatures(cy, 'Balcony')
-        roomsFuncs.saveNewRoom(cy, 'Floor 5, Room 105')
+        roomsFuncs.saveNewRoom(cy, 'Rooms', roomNumber)
+        dashboardFuncs.performLogout(cy, 'Login')
     })
 
     it('Test Case 3: Create new client', function(){
+        indexFuncs.performValidLogin(cy, targets.username, targets.password, 
+            'Tester Hotel Overview')
         dashboardFuncs.navigateToClientsPage(cy, 'Clients')
         clientsFuncs.createNewClient(cy, 'New Client')
-        clientsFuncs.inputClientName(cy, 'Fizza Aamir')
-        clientsFuncs.inputClientEmail(cy, 'fizza.aamir@gmail.com')
-        clientsFuncs.inputClientPhone(cy, '0720329236')
-        clientsFuncs.saveNewClient(cy, 'Clients')
+        clientsFuncs.inputClientName(cy)
+        let clientEmail=faker.internet.email()
+        clientsFuncs.inputClientEmail(cy, clientEmail)
+        clientsFuncs.inputClientPhone(cy)
+        clientsFuncs.saveNewClient(cy, 'Clients', clientEmail)
+        dashboardFuncs.performLogout(cy, 'Login')
+       // cy.contains(clientEmail)
     })
 
     it('Test Case 4- Create New Unpaid Bill', function(){
+        indexFuncs.performValidLogin(cy, targets.username, targets.password, 
+            'Tester Hotel Overview')
         dashboardFuncs.navigateToBillsPage(cy, 'Bills')
         billFuncs.createNewBill(cy, 'New Bill')
         billFuncs.inputValue(cy, '7800')
         billFuncs.saveNewBill(cy, 'Bills')
+        dashboardFuncs.performLogout(cy, 'Login')
     })
 
     it('Test Case 5: Edit Bill to Paid', function(){
+        indexFuncs.performValidLogin(cy, targets.username, targets.password, 
+            'Tester Hotel Overview')
         dashboardFuncs.navigateToBillsPage(cy, 'Bills')
+        billFuncs.createNewBill(cy, 'New Bill') //
+        billFuncs.inputValue(cy, '7800')//
+        billFuncs.saveNewBill(cy, 'Bills')//
         billFuncs.editBill(cy, 'Bill: 2')
         billFuncs.billIsPaid(cy)
         billFuncs.saveEditBill(cy, 'Bills')

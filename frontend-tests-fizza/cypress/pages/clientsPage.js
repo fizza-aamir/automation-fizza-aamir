@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import faker from 'faker'
 
 //Elements
 const createClientButton='#app > div > h2 > a'
@@ -12,18 +13,24 @@ function createNewClient(cy, contentToConfirm){
     cy.get(createClientButton).click()
     cy.contains(contentToConfirm)
 }
-function inputClientName(cy, name){
-    cy.get(nameField).type(name)
+
+function inputClientName(cy){
+    let firstName=faker.name.firstName()
+    let lastNAme=faker.name.lastName()
+    let fullName= firstName + ' '+ lastNAme
+    cy.get(nameField).type(fullName)
 }
 function inputClientEmail(cy, email){
     cy.get(emailField).type(email)
 }
-function inputClientPhone(cy, phone){
-    cy.get(phoneField).type(phone)
+function inputClientPhone(cy){
+    let phoneNumber=faker.phone.phoneNumber()
+    cy.get(phoneField).type(phoneNumber)
 }
-function saveNewClient(cy, contentToConfirm){
+function saveNewClient(cy, contentToConfirm1, contentToConfirm2){
     cy.get(saveButton).click()
-    cy.contains(contentToConfirm)
+    cy.contains(contentToConfirm1)
+    cy.contains(contentToConfirm2)
 }
 //Exports
 module.exports= {

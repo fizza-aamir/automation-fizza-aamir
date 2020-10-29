@@ -1,2 +1,7 @@
 frontend-tests-fizza/node_modules/
 rasi10-hotel-test-vue/node_modules
+frontend-tests-fizza/cypress/integration/testcase3.spec.js
+frontend-tests-fizza/cypress/integration/testcase4and5.spec.js
+frontend-tests-fizza/cypress/videos/
+frontend-tests-fizza/debug.log
+frontend-tests-fizza/mochawesome-report/

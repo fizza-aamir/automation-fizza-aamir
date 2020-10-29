@@ -68,14 +68,14 @@ describe('Test Suite with Page Objects', function(){
         dashboardFuncs.performLogout(cy, 'Login')
     })
 
-    it('Test Case 5: Edit Bill to Paid', function(){
+    it.only('Test Case 5: Edit Bill to Paid', function(){
         indexFuncs.performValidLogin(cy, targets.username, targets.password, 
             'Tester Hotel Overview')
         dashboardFuncs.navigateToBillsPage(cy, 'Bills')
         billFuncs.createNewBill(cy, 'New Bill') //
         billFuncs.inputValue(cy, '7800')//
         billFuncs.saveNewBill(cy, 'Bills')//
-        billFuncs.editBill(cy, 'Bill: 2')
+        billFuncs.editBill(cy)
         billFuncs.billIsPaid(cy)
         billFuncs.saveEditBill(cy, 'Bills')
     })

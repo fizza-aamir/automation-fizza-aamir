@@ -68,7 +68,7 @@ describe('Test Suite with Page Objects', function(){
         dashboardFuncs.performLogout(cy, 'Login')
     })
 
-    it.only('Test Case 5: Edit Bill to Paid', function(){
+    it('Test Case 5: Edit Bill to Paid', function(){
         indexFuncs.performValidLogin(cy, targets.username, targets.password, 
             'Tester Hotel Overview')
         dashboardFuncs.navigateToBillsPage(cy, 'Bills')
